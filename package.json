@@ -1,0 +1,25 @@
+{
+  "name": "8woc_challenge_frontend",
+  "version": "1.0.0",
+  "description": "Front End to Correspond With Backend Challenge",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pinto18/frontend_8woc2018.git"
+  },
+  "author": "Nicholas DiPinto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pinto18/frontend_8woc2018/issues"
+  },
+  "homepage": "https://github.com/Pinto18/frontend_8woc2018#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "jade": "^1.11.0",
+    "xtend": "^4.0.1"
+  }
+}
