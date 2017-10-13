@@ -1,0 +1,41 @@
+<label for="book">
+   Book
+</label>
+<input type="text" placeholder="Which book of the Bible?" id="book"><br>
+
+<label for="chapter">
+   Chapter
+</label>
+<input type="text" placeholder="Which chapter of the book?" id="chapter"><br>
+
+<label for="verse">
+   Verse
+</label>
+<input type="text" placeholder="Which verse of the chapter?" id="verse"><br><br><br>
+
+<textarea name="verse_contents" id="verse_text" rows="10" cols="50">
+   Verse Contents Will Appear Here
+</textarea><br>
+
+<script type="text/javascript"> 
+   function findVerse()
+   {
+      var book = document.getElementById("book").value;
+      var chapter_num = document.getElementById("chapter").value;
+      var verse_num = document.getElementById("verse").value;
+      var verse_text_area = document.getElementById("verse_text");
+      var xhttp = new XMLHttpRequest();
+      var url = "http://localhost:8000/verses/" + book + "/" + chapter_num + "/" + verse_num;
+
+      xhttp.open( "GET",    //configuring GET request
+                  url,
+                  false);
+      xhttp.send();   //send GET request
+      var result = JSON.parse(xhttp.responseText);
+      document.getElementById("verse_text").value = result.verse;
+   }
+</script>
+
+<button onclick="findVerse()">
+   Find Verse
+</button>

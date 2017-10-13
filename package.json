@@ -4,7 +4,8 @@
   "description": "Front End to Correspond With Backend Challenge",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js && opn http://localhost:9000"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,9 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "jade": "^1.11.0",
     "xtend": "^4.0.1"
+  },
+  "devDependencies": {
+    "opn-cli": "^3.1.0"
   }
 }
