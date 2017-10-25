@@ -24,22 +24,24 @@
 <br>
 <script type="text/javascript"> 
     function findVerse() {
-        var book = document.getElementById("book").value;
-        var chapter_num = document.getElementById("chapter").value;
-        var verse_num = document.getElementById("verse").value;
-        var verse_text_area = document.getElementById("verse_text");
+        let book = document.getElementById("book").value;
+        let chapter_num = parseInt(document.getElementById("chapter").value);
+        let verse_num = parseInt(document.getElementById("verse").value);
+        let verse_text_area = document.getElementById("verse_text");
         var param = { book: book, chapter: chapter_num, verse: verse_num }
         fetch('http://localhost:8001/get_verse', {
             method: "POST",
             mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(param)
         }).then(response => {
-                console.log(response.status, response.statusText, response.headers, response.ok)
-                return response.json()
-            })
-            .then(parsedResponse => console.log(parsedResponse))
+            return response.json()
+        }).then(parsedResponse => console.log(parsedResponse))
             .catch(error => {
-                console.log(error);
+                return error.json()
             });
     }
 </script>

@@ -12,6 +12,11 @@ var db = mongoose.connection;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.listen(8001);
 
 //rest
@@ -21,7 +26,10 @@ app.get('/', function (req, res) {
 app.post("/get_verse", (req, res) => {
     let book = req.body.book;
     let chapter = req.body.chapter;
-    let verse = req.body.verse
+    let verse = req.body.verse;
+
+    console.log(book, chapter, verse);
+    
     var filter = {};
     if (book && chapter && verse) {
         filter = { book: book, chapter: chapter, verse: verse };
@@ -35,5 +43,4 @@ app.post("/get_verse", (req, res) => {
     } else {
         res.send({ "error": "Please provide necessary data." })
     }
-
 });
