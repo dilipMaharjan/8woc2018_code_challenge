@@ -1,7 +1,7 @@
 <label for="book">
     Book
 </label>
-<input type="text" placeholder="Which book of the Bible?" id="book">
+<input type="text" placeholder="Which book of the Bible?" id="book" style="text-transform:capitalize">
 <br>
 
 <label for="chapter">
@@ -28,7 +28,15 @@
         let chapter_num = parseInt(document.getElementById("chapter").value);
         let verse_num = parseInt(document.getElementById("verse").value);
         let verse_text_area = document.getElementById("verse_text");
+
+        //capitalize first letter of book
+        book = book.charAt(0).toUpperCase() + book.substr(1);
+
+        //request body to send 
         var param = { book: book, chapter: chapter_num, verse: verse_num }
+
+        //making api call to server
+
         fetch('http://localhost:8001/get_verse', {
             method: "POST",
             mode: 'cors',
@@ -38,11 +46,12 @@
             },
             body: JSON.stringify(param)
         }).then(response => {
-            return response.json()
-        }).then(parsedResponse => console.log(parsedResponse))
-            .catch(error => {
-                return error.json()
-            });
+            return response.json();
+        }).then(parsedResponse => {
+            verse_text_area.textContent = parsedResponse[0].text;
+        }).catch(error => {
+            return error.json()
+        });
     }
 </script>
 

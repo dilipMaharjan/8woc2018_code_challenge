@@ -27,13 +27,10 @@ app.post("/get_verse", (req, res) => {
     let book = req.body.book;
     let chapter = req.body.chapter;
     let verse = req.body.verse;
-
-    console.log(book, chapter, verse);
-    
     var filter = {};
     if (book && chapter && verse) {
         filter = { book: book, chapter: chapter, verse: verse };
-        db.collection('bible').find(filter, { _id: 0, book: 1, chapter: 1, verse: 1, title: 1 }).toArray((error, response) => {
+        db.collection('bible').find(filter, { _id: 0, book: 1, chapter: 1, verse: 1, text: 1 }).toArray((error, response) => {
             if (error) {
                 res.send({ "error": "Verse not found." });
             } else {
