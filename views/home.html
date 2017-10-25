@@ -1,41 +1,49 @@
 <label for="book">
-   Book
+    Book
 </label>
-<input type="text" placeholder="Which book of the Bible?" id="book"><br>
+<input type="text" placeholder="Which book of the Bible?" id="book">
+<br>
 
 <label for="chapter">
-   Chapter
+    Chapter
 </label>
-<input type="text" placeholder="Which chapter of the book?" id="chapter"><br>
+<input type="text" placeholder="Which chapter of the book?" id="chapter">
+<br>
 
 <label for="verse">
-   Verse
+    Verse
 </label>
-<input type="text" placeholder="Which verse of the chapter?" id="verse"><br><br><br>
+<input type="text" placeholder="Which verse of the chapter?" id="verse">
+<br>
+<br>
+<br>
 
 <textarea name="verse_contents" id="verse_text" rows="10" cols="50">
    Verse Contents Will Appear Here
-</textarea><br>
-
+</textarea>
+<br>
 <script type="text/javascript"> 
-   function findVerse()
-   {
-      var book = document.getElementById("book").value;
-      var chapter_num = document.getElementById("chapter").value;
-      var verse_num = document.getElementById("verse").value;
-      var verse_text_area = document.getElementById("verse_text");
-      var xhttp = new XMLHttpRequest();
-      var url = "http://localhost:8000/verses/" + book + "/" + chapter_num + "/" + verse_num;
-
-      xhttp.open( "GET",    //configuring GET request
-                  url,
-                  false);
-      xhttp.send();   //send GET request
-      var result = JSON.parse(xhttp.responseText);
-      document.getElementById("verse_text").value = result.verse;
-   }
+    function findVerse() {
+        var book = document.getElementById("book").value;
+        var chapter_num = document.getElementById("chapter").value;
+        var verse_num = document.getElementById("verse").value;
+        var verse_text_area = document.getElementById("verse_text");
+        var param = { book: book, chapter: chapter_num, verse: verse_num }
+        fetch('http://localhost:8001/get_verse', {
+            method: "POST",
+            mode: 'cors',
+            body: JSON.stringify(param)
+        }).then(response => {
+                console.log(response.status, response.statusText, response.headers, response.ok)
+                return response.json()
+            })
+            .then(parsedResponse => console.log(parsedResponse))
+            .catch(error => {
+                console.log(error);
+            });
+    }
 </script>
 
 <button onclick="findVerse()">
-   Find Verse
+    Find Verse
 </button>
