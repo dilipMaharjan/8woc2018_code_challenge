@@ -21,6 +21,7 @@ app.listen(8001);
 
 //rest
 app.get('/', function (req, res) {
+    
     res.send('Welcome...');
 });
 app.post("/get_verse", (req, res) => {
